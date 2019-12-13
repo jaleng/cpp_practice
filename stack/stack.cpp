@@ -23,6 +23,10 @@ public:
     return back_element;
   }
 
+  std::size_t size() {
+    return elements_.size();
+  }
+
   void clear() {
     elements_.clear();
   }

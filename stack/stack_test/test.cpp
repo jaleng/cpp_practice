@@ -9,26 +9,37 @@ TEST(TestCaseName, TestName) {
   EXPECT_TRUE(true);
 }
 
-TEST(StackTest, PushPop) {
-  JG::Stack<int> stack;
-  std::vector<int> test_vec{ 1, 2, 3, 4, 5 };
+class StackTest : public ::testing::Test {
+protected:
+  void SetUp() override {
 
-  // push the values of our test vector into the stack
-  std::for_each(test_vec.begin(), test_vec.end(),
-    [&](const auto& num) { stack.push(num); });
+    // push the values of our test vector into the stack
+    std::for_each(test_vec_.begin(), test_vec_.end(),
+      [&](const auto& num) { stack_1to5_.push(num); });
+  }
 
-  std::cout << "Stack after filled:\n" << stack.print() << "\n";
+  // void TearDown() override {}
 
+  JG::Stack<int> stack_1to5_;
+  JG::Stack<int> stack_empty_;
+  JG::Stack<int> stack_;
+  std::vector<int> test_vec_{ 1, 2, 3, 4, 5 };
+};
+
+TEST_F(StackTest, PushPop) {
   // record the popped values into result
   std::vector<int> result;
-  for (int i = 0; i < test_vec.size(); ++i) {
-    result.push_back(stack.pop());
+  for (int i = 0; i < test_vec_.size(); ++i) {
+    result.push_back(stack_1to5_.pop());
   }
 
   // Stack is LIFO, we expect the popped values to come
   // in the reverse order that we pushed them.
   std::vector<int> expected{ 5, 4, 3, 2, 1 };
   EXPECT_TRUE(result == expected);
+}
 
-  std::cout << "Stack afterwards: \n" << stack.print() << "\n";
+TEST_F(StackTest, Size) {
+  EXPECT_EQ(stack_empty_.size(), 0);
+  EXPECT_EQ(stack_1to5_.size(), 5);
 }
