@@ -18,7 +18,7 @@ protected:
       [&](const auto& num) { stack_1to5_.push(num); });
   }
 
-  // void TearDown() override {}
+  void TearDown() override {}
 
   JG::Stack<int> stack_1to5_;
   JG::Stack<int> stack_empty_;
@@ -42,4 +42,9 @@ TEST_F(StackTest, PushPop) {
 TEST_F(StackTest, Size) {
   EXPECT_EQ(stack_empty_.size(), 0);
   EXPECT_EQ(stack_1to5_.size(), 5);
+}
+
+TEST_F(StackTest, Empty) {
+  EXPECT_TRUE(stack_empty_.empty());
+  EXPECT_FALSE(stack_1to5_.empty());
 }

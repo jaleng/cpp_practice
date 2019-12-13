@@ -27,6 +27,10 @@ public:
     return elements_.size();
   }
 
+  bool empty() {
+    return elements_.empty();
+  }
+
   void clear() {
     elements_.clear();
   }
