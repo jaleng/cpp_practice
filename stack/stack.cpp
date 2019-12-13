@@ -23,6 +23,11 @@ public:
     return back_element;
   }
 
+  // Get the last element inserted but do not remove it from the stack.
+  E peek() {
+    return elements_.back();
+  }
+
   std::size_t size() {
     return elements_.size();
   }
