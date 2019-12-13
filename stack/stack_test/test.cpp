@@ -17,7 +17,7 @@ TEST(StackTest, PushPop) {
   std::for_each(test_vec.begin(), test_vec.end(),
     [&](const auto& num) { stack.push(num); });
 
-  std::cout << "Stack after filled:\n" << JG::print(stack) << "\n";
+  std::cout << "Stack after filled:\n" << stack.print() << "\n";
 
   // record the popped values into result
   std::vector<int> result;
@@ -30,5 +30,5 @@ TEST(StackTest, PushPop) {
   std::vector<int> expected{ 5, 4, 3, 2, 1 };
   EXPECT_TRUE(result == expected);
 
-  std::cout << "Stack afterwards: \n" << JG::print(stack) << "\n";
+  std::cout << "Stack afterwards: \n" << stack.print() << "\n";
 }

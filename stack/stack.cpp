@@ -27,18 +27,14 @@ public:
     elements_.clear();
   }
 
-  template<typename T>
-  friend std::string print(const JG::Stack<T>&);
+  std::string print() {
+    std::stringstream result;
+    result << '[';
+    std::for_each(elements_.begin(), elements_.end(),
+      [&](E element) { result << std::to_string(element) << ','; });
+    result << ']';
+    return result.str();
+  }
 };
-
-template<typename E>
-std::string print(const JG::Stack<E>& stack) {
-  std::stringstream result;
-  result << '[';
-  std::for_each(stack.elements_.begin(), stack.elements_.end(),
-    [&](E element) { result << std::to_string(element) << ','; });
-  result << ']';
-  return result.str();
-}
 
 } // namespace JG
