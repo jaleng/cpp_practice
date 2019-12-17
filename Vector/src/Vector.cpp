@@ -52,6 +52,36 @@ void Vector<E>::change_capacity(std::size_t new_capacity)
 }
 
 template<typename E>
+void Vector<E>::erase(std::size_t position)
+{
+  assert(position >= 0 && position < size_);
+  std::size_t dst_index = position;
+  std::size_t src_index = dst_index + 1;
+  auto num_elems_to_copy = size_ - src_index;
+  std::memmove(data_ + dst_index, data_ + src_index, sizeof(E) * num_elems_to_copy);
+
+  --size_;
+}
+
+template<typename E>
+void Vector<E>::insert(std::size_t position, E value)
+{
+  assert(position >= 0 && position < size_);
+  if (capacity_ < size_ + 1) {
+    reserve(capacity_ * growth_factor);
+  }
+
+  std::size_t dst_index = position + 1;
+  std::size_t src_index = position;
+  auto num_elems_to_copy = size_ - src_index;
+  assert(data_ != nullptr);
+  std::memmove(data_ + dst_index, data_ + src_index, sizeof(E) * num_elems_to_copy);
+  ++size_;
+
+  data_[position] = value;
+}
+
+template<typename E>
 void Vector<E>::shrink_to_fit()
 {
   change_capacity(size_);

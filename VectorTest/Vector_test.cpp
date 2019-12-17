@@ -92,3 +92,25 @@ TEST_F(VectorTest, ReserveAndShrink) {
   v2.reserve(50);
   EXPECT_EQ(v2.capacity(), 100);
 }
+
+TEST_F(VectorTest, Erase) {
+  v2.erase(50);
+  EXPECT_EQ(v2[49], 49);
+  EXPECT_EQ(v2[50], 51);
+  EXPECT_EQ(v2.size(), 99);
+}
+
+TEST_F(VectorTest, Insert) {
+  v2.insert(50, 999);
+
+  // Check all values of v2 after the insert
+  for (int i = 0; i < 50; ++i) {
+    EXPECT_EQ(v2[i], i);
+  }
+  EXPECT_EQ(v2[50], 999);
+  for (int i = 51; i < 101; ++i) {
+    EXPECT_EQ(v2[i], i - 1);
+  }
+
+  EXPECT_EQ(v2.size(), 101);
+}

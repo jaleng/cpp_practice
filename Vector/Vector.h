@@ -33,6 +33,9 @@ public:
   void push_back(E element);
   void pop_back();
 
+  void erase(std::size_t position);
+  void insert(std::size_t position, E value);
+
   void reserve(std::size_t new_capacity);
   void shrink_to_fit();
 
