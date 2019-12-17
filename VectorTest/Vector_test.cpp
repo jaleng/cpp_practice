@@ -71,3 +71,24 @@ TEST_F(VectorTest, Size) {
   v1.push_back(1);
   EXPECT_EQ(v1.size(), 3);
 }
+
+TEST_F(VectorTest, ReserveAndShrink) {
+  v1.reserve(1000);
+  EXPECT_EQ(v1.size(), 3);
+  EXPECT_EQ(v1.capacity(), 1000);
+  for (int i = 0; i < 3; ++i) {
+    EXPECT_EQ(v1[i], i);
+  }
+
+  v1.shrink_to_fit();
+  EXPECT_EQ(v1.size(), 3);
+  EXPECT_EQ(v1.capacity(), 3);
+  for (int i = 0; i < 3; ++i) {
+    EXPECT_EQ(v1[i], i);
+  }
+
+  v2.shrink_to_fit();
+  EXPECT_EQ(v2.capacity(), 100);
+  v2.reserve(50);
+  EXPECT_EQ(v2.capacity(), 100);
+}

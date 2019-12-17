@@ -33,6 +33,9 @@ public:
   void push_back(E element);
   void pop_back();
 
+  void reserve(std::size_t new_capacity);
+  void shrink_to_fit();
+
 private:
   E* data_;
   std::size_t capacity_ = 0;
@@ -41,10 +44,7 @@ private:
   static constexpr std::size_t initial_capacity = 16;
   static constexpr std::size_t growth_factor = 2;
 
-  void grow(std::size_t new_capacity);
-  //void shrinkTo(std::size_t new_capacity);
-  //void shrink();
-
+  void change_capacity(std::size_t new_capacity);
 };
 
 } //namespace JG

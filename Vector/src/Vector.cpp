@@ -28,16 +28,33 @@ Vector<E>::~Vector() {
 }
 
 template<typename E>
-void Vector<E>::grow(std::size_t new_capacity) {
+void Vector<E>::reserve(std::size_t new_capacity) {
   if (new_capacity <= capacity_) return;
-  
+  change_capacity(new_capacity);
+}
+
+template<typename E>
+void Vector<E>::change_capacity(std::size_t new_capacity)
+{
+  if (new_capacity == capacity_) {
+    return;
+  }
+
   E* new_array = new E[new_capacity];
   assert(data_ != nullptr);
-  std::memcpy(new_array, data_, sizeof(E) * size_);
+  auto new_vec_size = size_ < new_capacity ? size_ : new_capacity;
+  std::memcpy(new_array, data_, sizeof(E) * new_vec_size);
   delete[] data_;
 
   data_ = new_array;
+  size_ = new_vec_size;
   capacity_ = new_capacity;
+}
+
+template<typename E>
+void Vector<E>::shrink_to_fit()
+{
+  change_capacity(size_);
 }
 
 template<typename E>
@@ -45,7 +62,7 @@ void Vector<E>::push_back(E element) {
   // check that space is available, if not grow the Vector
   auto new_size = size_ + 1;
   if (new_size > capacity_) {
-    grow(capacity_ * growth_factor);
+    reserve(capacity_ * growth_factor);
   }
   assert(capacity_ >= new_size);
 
