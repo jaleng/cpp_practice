@@ -1,5 +1,7 @@
 # Custom
 .vs/
+**/Debug
+*.config
 packages/
 **/*.vcxproj.*
 
