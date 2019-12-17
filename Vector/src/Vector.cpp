@@ -113,6 +113,14 @@ template<typename E>
 E& Vector<E>::operator[](std::size_t index) {
   return data_[index];
 }
+
+template<typename E>
+const E& Vector<E>::operator[](std::size_t index) const
+{
+  // duplicated nonconst version because it is very short.
+  return data_[index];
+}
+
 template<typename E>
 E& Vector<E>::back()
 {
@@ -121,8 +129,22 @@ E& Vector<E>::back()
 }
 
 template<typename E>
+const E& Vector<E>::back() const {
+  // duplicated nonconst version because it is very short.
+  assert(size_ > 0);
+  return data_[size_ - 1];
+}
+
+template<typename E>
 E& Vector<E>::front()
 {
+  assert(size_ > 0);
+  return data_[0];
+}
+
+template<typename E>
+const E& Vector<E>::front() const {
+  // duplicated nonconst version because it is very short.
   assert(size_ > 0);
   return data_[0];
 }

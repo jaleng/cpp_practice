@@ -114,3 +114,10 @@ TEST_F(VectorTest, Insert) {
 
   EXPECT_EQ(v2.size(), 101);
 }
+
+TEST_F(VectorTest, ConstAccessors) {
+  const auto &cv = v2;
+  EXPECT_EQ(cv.front(), 0);
+  EXPECT_EQ(cv.back(), 99);
+  EXPECT_EQ(cv[50], 50);
+}

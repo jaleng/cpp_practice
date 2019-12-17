@@ -21,9 +21,9 @@ public:
   std::size_t size() const;
   std::size_t capacity() const;
 
-  //const E& operator[](std::size_t index) const;
-  //const E& back() const;
-  //const E& front() const;
+  const E& operator[](std::size_t index) const;
+  const E& back() const;
+  const E& front() const;
 
 
   // mutators
