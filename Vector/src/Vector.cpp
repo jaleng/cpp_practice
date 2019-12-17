@@ -43,6 +43,7 @@ void Vector<E>::change_capacity(std::size_t new_capacity)
   E* new_array = new E[new_capacity];
   assert(data_ != nullptr);
   auto new_vec_size = size_ < new_capacity ? size_ : new_capacity;
+  // Use memcpy as source and destination do not overlap.
   std::memcpy(new_array, data_, sizeof(E) * new_vec_size);
   delete[] data_;
 
@@ -58,6 +59,7 @@ void Vector<E>::erase(std::size_t position)
   std::size_t dst_index = position;
   std::size_t src_index = dst_index + 1;
   auto num_elems_to_copy = size_ - src_index;
+  // use memmove here because of overlapping source and destination memory blocks
   std::memmove(data_ + dst_index, data_ + src_index, sizeof(E) * num_elems_to_copy);
 
   --size_;
@@ -75,6 +77,7 @@ void Vector<E>::insert(std::size_t position, E value)
   std::size_t src_index = position;
   auto num_elems_to_copy = size_ - src_index;
   assert(data_ != nullptr);
+  // use memmove here because of overlapping source and destination memory blocks
   std::memmove(data_ + dst_index, data_ + src_index, sizeof(E) * num_elems_to_copy);
   ++size_;
 
